@@ -1,4 +1,7 @@
 # Required variables
+variable "region" {}
+variable "prefix" {}
+variable "name" {}
 
 variable "vm-name" {
     description = "Name of the VM, used to name all components related to that VM."
