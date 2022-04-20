@@ -10,6 +10,9 @@
 #     Import subscription ?
 
 terraform {
+  backend "local" {
+    path = "../../state/core.tfstate"
+  }
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -57,46 +60,3 @@ resource "azurerm_resource_group" "rg-tera-servervm" {
   name     = "RG-TERA-ServerVM"
   location = "eastus"
 }
-
-/*
-
-
-module "WIN01" {
-  source = "./modules/dzab-servervm"
-  providers = {
-    azurerm = azurerm.sub-payg-terraformtesting
-  }
-
-  vm-name                = "WIN01"
-  resourceGroup-name     = azurerm_resource_group.rg-tera-servervm.name
-  resourceGroup-location = azurerm_resource_group.rg-tera-servervm.location
-  subnet-id              = azurerm_subnet.subnet-tera-00.id
-}
-
-
-module "WIN02" {
-  source = "./modules/dzab-servervm"
-  providers = {
-    azurerm = azurerm.sub-payg-terraformtesting
-  }
-
-  vm-name                = "WIN02"
-  resourceGroup-name     = azurerm_resource_group.rg-tera-servervm.name
-  resourceGroup-location = azurerm_resource_group.rg-tera-servervm.location
-  subnet-id              = azurerm_subnet.subnet-tera-00.id
-}
-
-# Module Block Template
-module "The VM Name" {
-  source = "./modules/dzab-servervm"
-  providers = {
-    azurerm = azurerm.sub-payg-terraformtesting
-  }
-
-  vm-name                = "WIN02"
-  resourceGroup-name     = azurerm_resource_group.rg-tera-servervm.name
-  resourceGroup-location = azurerm_resource_group.rg-tera-servervm.location
-  subnet-id              = azurerm_subnet.subnet-tera-00.id
-}
-
-*/
