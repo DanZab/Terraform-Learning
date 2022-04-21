@@ -58,7 +58,6 @@ resource "azurerm_resource_group" "rg-tera-servervm" {
   location = "eastus"
 }
 
-/*
 
 
 module "WIN01" {
@@ -71,9 +70,16 @@ module "WIN01" {
   resourceGroup-name     = azurerm_resource_group.rg-tera-servervm.name
   resourceGroup-location = azurerm_resource_group.rg-tera-servervm.location
   subnet-id              = azurerm_subnet.subnet-tera-00.id
+
+  vm-disks = {
+    "1" = 10
+    "2" = 10
+    "3" = 10
+  }
 }
 
 
+/*
 module "WIN02" {
   source = "./modules/dzab-servervm"
   providers = {
