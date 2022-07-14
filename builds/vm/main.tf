@@ -16,7 +16,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 2.65"
+      version = "~> 3.9.0"
     }
   }
 
@@ -32,15 +32,15 @@ provider "azurerm" {
   subscription_id = "0a51535c-1009-4673-8654-6a78c9998f29"
   features {}
 }
-/*
-data "terraform_remote_state" "data" {
+
+data "terraform_remote_state" "core" {
   backend = "local"
 
   config = {
-    path = "../../state/terraform.tfstate"
+    path = "../../state/core.tfstate"
   }
 }
-*/
+
 module "server-vm" {
   source = "../../modules/terraform-azurerm-dzab-servervm"
   providers = {
@@ -50,7 +50,13 @@ module "server-vm" {
   vm-name                = var.vm-name
   resourceGroup-name     = var.resource_group_name
   resourceGroup-location = var.resource_group_location
-  subnet-id              = azurerm_subnet.subnet-tera-00.id
+  subnet-id              = data.terraform_remote_state.core.outputs.subnet_id
+
+  vm_data_disks = {
+    "1" = 20
+    "2" = 30
+    "3" = 40
+  }
 }
 
 /*

@@ -18,3 +18,15 @@ variable "subnet-id" {
     description = "Id of the subnet the VM will get an address from."
     type = string
 }
+
+variable "vm_data_disks" {
+  description = "(Optional) A map consisting of numeric disk ids and their corresponding sizes in GB."
+  type        = map(any)
+  default     = null
+}
+
+variable "vm_data_disks_count" {
+  description = "(Optional) A map consisting of numeric disk ids and their corresponding sizes in GB."
+  type        = map(any)
+  default     = null
+}
